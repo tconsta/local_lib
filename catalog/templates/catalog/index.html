@@ -1,0 +1,95 @@
+{% extends "catalog/base.html" %}
+
+{% block title %}<title>Local library - Home</title>{% endblock %}
+
+{% block content %}
+
+  <h1>The Local Library</h1>
+
+  {% if user.is_authenticated %}
+    <p>Hello, {{ user.get_short_name }}!</p>
+  {% else %}
+    <p>Welcome to the Local Library Home Page!</p>
+  {% endif %}
+
+  <p>The library has the following record counts:</p>
+  <div class="row">
+    <div class="col-lg-4">
+      <ul class="lib-db">
+        <li><strong>Books:</strong> {{ num_books }}</li>
+        <li><strong>Copies:</strong> {{ num_instances }}</li>
+        <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+        <li><strong>Authors:</strong> {{ num_authors }}</li>
+      </ul>
+    </div>
+    <div class="col-lg-6">
+      {% load static %}
+      <img src="{% static 'img/books.png' %}" style="width:330px;">
+      <div class="visit-count">
+        <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Discover The Local Library’s new personalized book selection service!</h3>
+
+  <p>While browsing is limited, we offer a friendly, adventurous alternative. Tell us your reading interests and we’ll pick five books for you!</p>
+
+  <p>The Local Library offers a personalized book selection service through Shelf Help. Fill out the online form or drop off a request form to receive new reads handpicked for you based on your interests. Await our signal then pick up a book bundle of five recommended reads.</p>
+
+  <br>
+  <h3>Loan Periods</h3>
+  <p>Most library materials are loaned for 3 weeks. Failure to return materials may result in the borrower’s account being turned over to Unique National Collections, a materials recovery agency.
+
+  There is a maximum of 30 items allowed on the patron’s record. A teacher using a Teachers Library Card may borrow a total of 50 items, with some restrictions, at any given time with librarian approval. 30 items may be charged at any given time to a Homebound borrower and 500 items to a Depository Loan borrower.</p>
+
+{% endblock %}
+
+{% block right-col %}
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <a href="{% url 'book-detail' 2 %}">
+        {% load static %}
+        <img src="{% static 'img/book-cover/crime.jpg' %}" class="d-block w-100" alt="...">
+      </a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'book-detail' 8 %}">
+        {% load static %}
+        <img src="{% static 'img/book-cover/solitude.jpg' %}" class="d-block w-100" alt="...">
+      </a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'book-detail' 5 %}">
+        {% load static %}
+        <img src="{% static 'img/book-cover/bell.jpg' %}" class="d-block w-100" alt="...">
+      </a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'book-detail' 9 %}">
+        {% load static %}
+        <img src="{% static 'img/book-cover/rose.jpg' %}" class="d-block w-100" alt="...">
+      </a>
+    </div>
+    <div class="carousel-item">
+      <a href="{% url 'book-detail' 7 %}">
+        {% load static %}
+        <img src="{% static 'img/book-cover/underground.jpg' %}" class="d-block w-100" alt="...">
+      </a>
+    </div>
+
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<div class="new-arrivals text-center">
+  New arrivals!
+</div>
+{% endblock %}
