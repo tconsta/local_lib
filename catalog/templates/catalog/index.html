@@ -1,5 +1,7 @@
 {% extends "catalog/base.html" %}
 
+{% load static %}
+
 {% block title %}<title>Local library - Home</title>{% endblock %}
 
 {% block content %}
@@ -23,7 +25,6 @@
       </ul>
     </div>
     <div class="col-lg-6">
-      {% load static %}
       <img src="{% static 'img/books.png' %}" style="width:330px;">
       <div class="visit-count">
         <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
@@ -50,31 +51,26 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
       <a href="{% url 'book-detail' 2 %}">
-        {% load static %}
         <img src="{% static 'img/book-cover/crime.jpg' %}" class="d-block w-100" alt="...">
       </a>
     </div>
     <div class="carousel-item">
       <a href="{% url 'book-detail' 8 %}">
-        {% load static %}
         <img src="{% static 'img/book-cover/solitude.jpg' %}" class="d-block w-100" alt="...">
       </a>
     </div>
     <div class="carousel-item">
       <a href="{% url 'book-detail' 5 %}">
-        {% load static %}
         <img src="{% static 'img/book-cover/bell.jpg' %}" class="d-block w-100" alt="...">
       </a>
     </div>
     <div class="carousel-item">
       <a href="{% url 'book-detail' 9 %}">
-        {% load static %}
         <img src="{% static 'img/book-cover/rose.jpg' %}" class="d-block w-100" alt="...">
       </a>
     </div>
     <div class="carousel-item">
       <a href="{% url 'book-detail' 7 %}">
-        {% load static %}
         <img src="{% static 'img/book-cover/underground.jpg' %}" class="d-block w-100" alt="...">
       </a>
     </div>
