@@ -84,6 +84,7 @@ target/
 *.pyc
 __pycache__/
 catalog/migrations/
+media/
 local_settings.py
 
 .env

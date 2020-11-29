@@ -1,15 +1,23 @@
 {% extends "catalog/base.html" %}
+{% load static %}
 
 {% block content %}
   <h1>Book List</h1>
   {% if book_list %}
-  <ul class="book-list">
+  <div class="row">
     {% for book in book_list %}
-      <li>
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
-      </li>
+    <div class="col-sm-3 book-list">
+      <a href="{{ book.get_absolute_url }}">
+        {% if book.cover %}
+        <img src="{{book.cover.url}}" class="w-100" alt="Book cover">
+        {% else %}
+        <img src="{% static 'img/blank-cover.jpg' %}" class="w-100" alt="Book cover">
+        {% endif %}
+        {{ book.title }}
+      </a>
+    </div>
     {% endfor %}
-  </ul>
+  </div>
   {% else %}
     <p>There are no books in the library.</p>
   {% endif %}
@@ -19,7 +27,7 @@
 {% if perms.catalog.can_mark_returned %}
   <div class="addauthor ml-3">
     <br>
-    <a href="{% url 'author_create' %}">
+    <a href="{% url 'book_create' %}">
       <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
       </svg>

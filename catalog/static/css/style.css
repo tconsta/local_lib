@@ -44,11 +44,14 @@ a:active {
   background-color: transparent;
   text-decoration: underline;
 }
-.book-list, .author-list, .author-book, .borrowed-list{
+.author-list, .author-book, .borrowed-list{
   list-style: none;
 }
-.book-list li, .author-list li {
+.author-list li {
   margin: 20px;
+}
+.book-list {
+  margin-bottom: 30px;
 }
 h1 {
   font-size: 2rem;
@@ -59,6 +62,4 @@ h1 {
 }
 .lib-db li {
   margin: 15px;
-}
-.right-col {
 }

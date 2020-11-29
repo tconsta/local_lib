@@ -1,5 +1,5 @@
 {% extends "catalog/base.html" %}
-
+{% load static %}
 {% block title %}<title>{{ author.first_name }} {{ author.last_name }}</title>{% endblock %}
 
 {% block content %}
@@ -9,15 +9,21 @@
   <p><strong>Date of death:</strong> {{ author.date_of_death }}</p>
 
 <h4>Books:</h4>
-  <div style="margin-left:20px;margin-top:20px">
-
+  <div class="row">
     {% for book in author.book_set.all %}
-    <li class="author-book">
-      <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
-    </li>
+    <div class="col-md-3">
+      <a href="{{ book.get_absolute_url }}">
+        {% if book.cover %}
+        <img src="{{book.cover.url}}" class="w-100" alt="Book cover">
+        {% else %}
+        <img src="{% static 'img/blank-cover.jpg' %}" class="w-100" alt="Book cover">
+        {% endif %}
+        <p>{{ book.title }}</p>
+      </a>
+    </div>
     {% endfor %}
   </div>
-  <br>
+
   <h4>Bio:</h4>
   <p>{{ author.bio }}</p>
 

@@ -1,5 +1,4 @@
 {% extends "catalog/base.html" %}
-
 {% load static %}
 
 {% block title %}<title>Local library - Home</title>{% endblock %}
@@ -47,33 +46,14 @@
 {% endblock %}
 
 {% block right-col %}
+{% if new_arrivals %}
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <a href="{% url 'book-detail' 2 %}">
-        <img src="{% static 'img/book-cover/crime.jpg' %}" class="d-block w-100" alt="...">
-      </a>
+    {% for book in new_arrivals %}
+    <div class="carousel-item {% if forloop.first %} active {% endif %}">
+      <a href="{{ book.get_absolute_url }}"><img src="{{book.cover.url}}" class="w-100" alt="Book cover"></a>
     </div>
-    <div class="carousel-item">
-      <a href="{% url 'book-detail' 8 %}">
-        <img src="{% static 'img/book-cover/solitude.jpg' %}" class="d-block w-100" alt="...">
-      </a>
-    </div>
-    <div class="carousel-item">
-      <a href="{% url 'book-detail' 5 %}">
-        <img src="{% static 'img/book-cover/bell.jpg' %}" class="d-block w-100" alt="...">
-      </a>
-    </div>
-    <div class="carousel-item">
-      <a href="{% url 'book-detail' 9 %}">
-        <img src="{% static 'img/book-cover/rose.jpg' %}" class="d-block w-100" alt="...">
-      </a>
-    </div>
-    <div class="carousel-item">
-      <a href="{% url 'book-detail' 7 %}">
-        <img src="{% static 'img/book-cover/underground.jpg' %}" class="d-block w-100" alt="...">
-      </a>
-    </div>
+    {% endfor %}
 
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -88,4 +68,5 @@
 <div class="new-arrivals text-center">
   New arrivals!
 </div>
+{% endif %}
 {% endblock %}

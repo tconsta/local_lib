@@ -4,11 +4,19 @@
 
 {% block content %}
 <h1>{{ book.title }}</h1>
-
   <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
-  <p><strong>Summary:</strong> {{ book.summary }}</p>
-  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-  <p><strong>Language:</strong> {{ book.language }}</p>
+  <div class="row">
+    <div class="col-md-8">
+      <p><strong>Summary:</strong> {{ book.summary }}</p>
+      <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+      <p><strong>Language:</strong> {{ book.language }}</p>
+    </div>
+    {% if book.cover %}
+    <div class="col-md-4">
+      <img src="{{book.cover.url}}" class="w-100" alt="Book cover">
+    </div>
+    {% endif %}
+  </div>
   <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
 
   {% if perms.catalog.can_mark_returned %}
