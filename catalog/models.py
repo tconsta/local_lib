@@ -1,8 +1,9 @@
 from django.db import models
 from django.urls import reverse
-import uuid # Required for unique book instances
+import uuid  # Required for unique book instances
 from django.contrib.auth.models import User
 from datetime import date
+
 
 class Genre(models.Model):
     """Model representing a book genre."""
@@ -33,7 +34,8 @@ class Book(models.Model):
 
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
     isbn = models.CharField('ISBN', max_length=13, unique=True,
-                             help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
+                            help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn'
+                                      '">ISBN number</a>')
 
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
@@ -58,7 +60,8 @@ class Book(models.Model):
 
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular book across whole library')
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          help_text='Unique ID for this particular book across whole library')
     book = models.ForeignKey('Book', on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
@@ -100,7 +103,7 @@ class Author(models.Model):
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField('Died', null=True, blank=True)
-    bio = models.TextField(max_length=2000,null=True, blank=True)
+    bio = models.TextField(max_length=2000, null=True, blank=True)
 
     class Meta:
         ordering = ['last_name', 'first_name']

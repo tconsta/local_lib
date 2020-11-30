@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from catalog.forms import RenewBookForm
 from catalog.models import Book, Author, BookInstance, Genre
 
+
 def index(request):
     """View function for home page of site."""
 
@@ -29,7 +30,7 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
-    new_arrivals = Book.objects.order_by('pk')[:9] # should be ('-pk')[:3]
+    new_arrivals = Book.objects.order_by('pk')[:9]  # should be ('-pk')[:3]
     print(new_arrivals)
     context = {
         'num_books': num_books,
@@ -62,21 +63,21 @@ class AuthorDetailView(generic.DetailView):
     model = Author
 
 
-class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
-    template_name ='catalog/bookinstance_list_borrowed_user.html'
+    template_name = 'catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 10
 
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
 
 
-class AllBorrowedListView(PermissionRequiredMixin,generic.ListView):
+class AllBorrowedListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     permission_required = 'catalog.can_mark_returned'
     model = BookInstance
-    template_name ='catalog/all_borrowed.html'
+    template_name = 'catalog/all_borrowed.html'
     paginate_by = 10
 
     def get_queryset(self):
@@ -102,7 +103,7 @@ def renew_book_librarian(request, pk):
             book_instance.save()
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('all-borrowed') )
+            return HttpResponseRedirect(reverse('all-borrowed'))
 
     # If this is a GET (or any other method) create the default form.
     else:
@@ -117,34 +118,39 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', context)
 
 
-class AuthorCreate(PermissionRequiredMixin,CreateView):
+class AuthorCreate(PermissionRequiredMixin, CreateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death', 'bio']
     initial = {'date_of_death': '11/06/2020'}
     permission_required = 'catalog.can_mark_returned'
 
-class AuthorUpdate(PermissionRequiredMixin,UpdateView):
+
+class AuthorUpdate(PermissionRequiredMixin, UpdateView):
     model = Author
-    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    fields = '__all__'  # Not recommended (potential security issue if more fields added)
     permission_required = 'catalog.can_mark_returned'
 
-class AuthorDelete(PermissionRequiredMixin,DeleteView):
+
+class AuthorDelete(PermissionRequiredMixin, DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
     permission_required = 'catalog.can_mark_returned'
 
-class BookCreate(PermissionRequiredMixin,CreateView):
+
+class BookCreate(PermissionRequiredMixin, CreateView):
     model = Book
-    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    fields = '__all__'  # Not recommended (potential security issue if more fields added)
     initial = {'date_of_death': '11/06/2020'}
     permission_required = 'catalog.can_mark_returned'
 
-class BookUpdate(PermissionRequiredMixin,UpdateView):
+
+class BookUpdate(PermissionRequiredMixin, UpdateView):
     model = Book
-    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    fields = '__all__'  # Not recommended (potential security issue if more fields added)
     permission_required = 'catalog.can_mark_returned'
 
-class BookDelete(PermissionRequiredMixin,DeleteView):
+
+class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy('books')
     permission_required = 'catalog.can_mark_returned'
