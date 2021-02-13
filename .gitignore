@@ -85,7 +85,7 @@ target/
 __pycache__/
 catalog/migrations/
 media/
-local_settings.py
+settings_prod.py
 
 .env
-db.sqlite3
+
