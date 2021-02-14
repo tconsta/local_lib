@@ -86,6 +86,6 @@ __pycache__/
 catalog/migrations/
 media/
 settings_prod.py
-
+static/
 .env
 
