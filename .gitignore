@@ -1,9 +1,5 @@
 # Created by https://www.gitignore.io
 
-### OSX ###
-.DS_Store
-.AppleDouble
-.LSOverride
 
 # Icon must end with two \r
 Icon
@@ -88,4 +84,6 @@ media/
 settings_prod.py
 static/
 .env
+
+supervisord.conf
 
